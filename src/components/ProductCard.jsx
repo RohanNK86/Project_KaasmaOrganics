@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 function ProductCard(props) {
   const swiperRef = useRef(null);
   const { addToCart } = useCart();
-  
+
   // Handle weight options from backend (weightOptions array) or static data (price)
   const getWeightOptions = () => {
     if (props.weightOptions && Array.isArray(props.weightOptions) && props.weightOptions.length > 0) {
@@ -49,7 +49,7 @@ function ProductCard(props) {
       console.error('Invalid weight or price selected');
       return;
     }
-    
+
     const product = {
       id: props.id || props._id || Math.random().toString(36).substr(2, 9),
       _id: props._id || props.id,
@@ -100,7 +100,7 @@ function ProductCard(props) {
           )}
         </Swiper>
 
-        
+
       </div>
 
       {/* PRODUCT DETAILS */}
@@ -117,28 +117,24 @@ function ProductCard(props) {
 
         <div className="weight-selector">
           <label>Select Weight:</label>
-          <div className="weight-options">
+          <select
+            className="weight-select"
+            value={selectedWeight}
+            onChange={(e) => setSelectedWeight(e.target.value)}
+          >
             {weightOptions.map((option) => {
               const price = parseFloat(option.price) || 0;
               return (
-                <button
-                  key={option.value}
-                  className={`weight-option ${
-                    selectedWeight === option.value ? 'active' : ''
-                  }`}
-                  onClick={() => setSelectedWeight(option.value)}
-                  type="button"
-                >
-                  {option.value}
-                  <span>₹{price.toFixed(2)}</span>
-                </button>
+                <option key={option.value} value={option.value}>
+                  {option.value} - ₹{price.toFixed(2)}
+                </option>
               );
             })}
-          </div>
+          </select>
         </div>
 
         <div className="quantity-selector">
-          <button 
+          <button
             onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
             type="button"
             disabled={quantity <= 1}
@@ -146,7 +142,7 @@ function ProductCard(props) {
             <FiMinus size={14} />
           </button>
           <span>{quantity}</span>
-          <button 
+          <button
             onClick={() => setQuantity(prev => prev + 1)}
             type="button"
           >
@@ -154,8 +150,8 @@ function ProductCard(props) {
           </button>
         </div>
 
-        <button 
-          className="add-cart" 
+        <button
+          className="add-cart"
           onClick={handleAddToCart}
         >
           Add to Cart - ₹{(weightOptions.find(opt => opt.value === selectedWeight)?.price || 0).toFixed(2)}

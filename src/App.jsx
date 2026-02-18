@@ -12,29 +12,34 @@ function App() {
     <Router>
       <CartProvider value={{ isCartOpen, setIsCartOpen }}>
         <div className="app">
-          <Home />
-          <Cart 
-            isOpen={isCartOpen} 
-            onClose={() => {
-              setIsCartOpen(false);
-              if (window.location.pathname !== '/') {
-                window.history.back();
-              }
-            }} 
-          />
-          
           <Routes>
-            <Route path="/" element={<div />} />
-            <Route 
-              path="/checkout" 
+            <Route
+              path="/"
               element={
-                <Checkout 
+                <>
+                  <Home />
+                  <Cart
+                    isOpen={isCartOpen}
+                    onClose={() => {
+                      setIsCartOpen(false);
+                      if (window.location.pathname !== '/') {
+                        window.history.back();
+                      }
+                    }}
+                  />
+                </>
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                <Checkout
                   onBack={() => {
                     window.history.back();
                     setIsCartOpen(true);
-                  }} 
+                  }}
                 />
-              } 
+              }
             />
           </Routes>
         </div>

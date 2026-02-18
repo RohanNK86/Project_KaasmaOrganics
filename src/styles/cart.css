@@ -783,6 +783,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -868,4 +869,94 @@
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+/* ============================================
+   CART & CHECKOUT — RESPONSIVE MEDIA QUERIES
+   ============================================ */
+
+/* Tablet (≤ 768px) */
+@media (max-width: 768px) {
+
+  /* Cart panel takes full width on small screens */
+  .cart-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 16px;
+  }
+
+  .cart-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .cart-item-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Checkout */
+  .checkout-container {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .order-confirmation {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .cart-container {
+    padding: 12px;
+  }
+
+  .cart-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .cart-item {
+    padding: 12px 0;
+  }
+
+  .cart-item-image {
+    width: 56px;
+    height: 56px;
+    margin-right: 10px;
+  }
+
+  .cart-item h3 {
+    font-size: 0.9rem;
+  }
+
+  .subtotal {
+    font-size: 1rem;
+  }
+
+  .checkout-btn,
+  .place-order-btn,
+  .continue-shopping,
+  .back-to-shop {
+    font-size: 0.9rem;
+    padding: 11px;
+  }
+
+  .checkout-container {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 6px;
+  }
+
+  .payment-option {
+    padding: 12px;
+  }
+
+  .order-summary {
+    padding: 1rem;
+  }
 }

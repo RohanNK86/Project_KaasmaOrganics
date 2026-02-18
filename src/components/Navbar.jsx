@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
-import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import React, { useState } from "react";
+import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import logo from "../assets1/images/kasmalogo.jpeg";
 import { useCart } from "../context/CartContext.jsx";
 
 function Navbar() {
-  const { cartCount, setIsCartOpen } = useCart();
-  
+  const { cartCount, setIsCartOpen, isCartOpen } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleScroll = (e, id) => {
     e.preventDefault();
+    setMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -16,16 +18,27 @@ function Navbar() {
 
   return (
     <div>
-      <div className="banner">
-        🌿 Free Shipping on Orders Above $50 | 100% Organic Certified Products
-      </div>
-      <nav className="navbar">
+      {!isCartOpen && (
+        <div className="banner">
+          🌿 Free Shipping on Orders Above ₹299 | 100% Organic Certified Products
+        </div>
+      )}
+      <nav className="navbar" style={{ top: isCartOpen ? '0' : '44px' }}>
         <div className="logo">
           <img src={logo} alt="logo" />
           <span>Kasma Organics</span>
         </div>
 
-        <ul className="nav-links">
+        {/* Hamburger toggle for mobile */}
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
+
+        <ul className={`nav-links${menuOpen ? ' nav-links--open' : ''}`}>
           <li>
             <a href="#home" onClick={(e) => handleScroll(e, 'home')}>Home</a>
           </li>
@@ -46,8 +59,8 @@ function Navbar() {
         <div className="nav-icons">
           <FiSearch className="nav-icon" />
           <FiUser className="nav-icon" />
-          <div 
-            className="cart-icon-container" 
+          <div
+            className="cart-icon-container"
             onClick={() => setIsCartOpen(true)}
             style={{ position: 'relative', cursor: 'pointer' }}
           >

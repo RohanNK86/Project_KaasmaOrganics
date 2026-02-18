@@ -232,19 +232,19 @@ const importData = async () => {
     try {
         // Connect to database first
         await connectDB();
-        
+
         // Wait a bit to ensure connection is ready
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         // Clear existing products
         console.log('Clearing existing products...');
         await Product.deleteMany({});
         console.log('Existing products cleared.');
-        
+
         // Insert sample products
         console.log('Inserting products...');
         await Product.insertMany(sampleProducts);
-        
+
         console.log(`✅ Data imported successfully! ${sampleProducts.length} products added.`);
         await mongoose.connection.close();
         process.exit(0);
@@ -260,10 +260,10 @@ const destroyData = async () => {
     try {
         // Connect to database first
         await connectDB();
-        
+
         // Wait a bit to ensure connection is ready
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         console.log('Deleting all products...');
         await Product.deleteMany({});
         console.log('✅ Data destroyed successfully!');
